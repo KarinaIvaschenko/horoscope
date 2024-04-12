@@ -15,13 +15,7 @@ Future<void> main() async {
 
 class MyApp extends StatelessWidget {
   MyApp() {
-    // initFirebase();
   }
-
-  // void initFirebase() async {
-  //   WidgetsFlutterBinding.ensureInitialized();
-  //   await Firebase.initializeApp();
-  // }
 
   @override
   Widget build(BuildContext context) {
