@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "1067905781367",
-    "project_id": "horoscope-2e4b9",
-    "storage_bucket": "horoscope-2e4b9.appspot.com"
+    "project_number": "489492175696",
+    "project_id": "horoscope-fcbc5",
+    "storage_bucket": "horoscope-fcbc5.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1067905781367:android:9cc0cdaaab9d2300bf8072",
+        "mobilesdk_app_id": "1:489492175696:android:ed3322031ddc8f56a6aa55",
         "android_client_info": {
           "package_name": "com.example.horoscope"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyBRpd53QIO0wVR7z4kwYdVNTXIZRTOoDW8"
+          "current_key": "AIzaSyAQYX98y40ZMiDSRM1Gk06K0WmpJb6gSDA"
         }
       ],
       "services": {
