@@ -41,13 +41,10 @@ class _ZodiacSignsScreenState extends State<ZodiacSignsScreen> {
                   future: _fetchDataFuture,
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
-                      // Показываем индикатор загрузки, пока данные загружаются
                       return CircularProgressIndicator();
                     } else if (snapshot.hasError) {
-                      // Показываем сообщение об ошибке, если что-то пошло не так
                       return Text('Error: ${snapshot.error}');
                     } else {
-                      // Данные успешно загружены, создаем кнопки для каждого знака
                       List<String> zodiacSigns = snapshot.data ?? [];
                       return Column(
                         children: zodiacSigns.map((signName) {
