@@ -16,7 +16,10 @@ class ZodiacSignScreen extends StatelessWidget {
           image: DecorationImage(
             image: AssetImage('assets/$name.jpg'),
             fit: BoxFit.cover,
-            opacity: 0.8,
+            colorFilter: ColorFilter.mode(
+              Colors.black.withOpacity(0.5),
+              BlendMode.darken,
+            ),
           ),
         ),
         child: Padding(
@@ -39,8 +42,11 @@ class ZodiacSignScreen extends StatelessWidget {
                     } else {
                       return Text(
                         snapshot.data ?? 'No data available',
-                        style:
-                            const TextStyle(color: Colors.white, fontSize: 22),
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 22,
+                          height: 2.0,
+                        ),
                       );
                     }
                   },
