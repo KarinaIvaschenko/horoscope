@@ -1,11 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:horoscope/pages/zodiacSigns/ZodiacSignScreen.dart';
 import 'package:horoscope/pages/zodiacSigns/ZodiacSignsButton.dart';
-
 import '../../api/req.dart';
 
-class ZodiacSignsScreen extends StatelessWidget {
-  const ZodiacSignsScreen({super.key});
+class ZodiacSignsScreen extends StatefulWidget {
+  const ZodiacSignsScreen({Key? key}) : super(key: key);
+
+  @override
+  _ZodiacSignsScreenState createState() => _ZodiacSignsScreenState();
+}
+
+class _ZodiacSignsScreenState extends State<ZodiacSignsScreen> {
+  late Future<List<String>> _fetchDataFuture;
+
+  @override
+  void initState() {
+    super.initState();
+    _fetchDataFuture = fetchData();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -15,8 +27,8 @@ class ZodiacSignsScreen extends StatelessWidget {
           image: DecorationImage(
               image: AssetImage('assets/zodiacSigns.jpg'), fit: BoxFit.cover),
         ),
-        child: const Padding(
-          padding: EdgeInsets.all(60.0),
+        child: Padding(
+          padding: const EdgeInsets.all(60.0),
           child: Center(
             child: Column(
               children: <Widget>[
@@ -25,53 +37,28 @@ class ZodiacSignsScreen extends StatelessWidget {
                   style: TextStyle(color: Colors.amber, fontSize: 24),
                 ),
                 SizedBox(height: 30),
-                ZodiacSignButton(
-                  page: ZodiacSignScreen(name: 'Capricorn'),
-                  signName: 'Capricorn',
-                ),
-                ZodiacSignButton(
-                  page: ZodiacSignScreen(name: 'Aquarius'),
-                  signName: 'Aquarius',
-                ),
-                ZodiacSignButton(
-                  page: ZodiacSignScreen(name: 'Pisces'),
-                  signName: 'Pisces',
-                ),
-                ZodiacSignButton(
-                  page: ZodiacSignScreen(name: 'Aries'),
-                  signName: 'Aries',
-                ),
-                ZodiacSignButton(
-                  page: ZodiacSignScreen(name: 'Taurus'),
-                  signName: 'Taurus',
-                ),
-                ZodiacSignButton(
-                  page: ZodiacSignScreen(name: 'Gemini'),
-                  signName: 'Gemini',
-                ),
-                ZodiacSignButton(
-                  page: ZodiacSignScreen(name: 'Cancer'),
-                  signName: 'Cancer',
-                ),
-                ZodiacSignButton(
-                  page: ZodiacSignScreen(name: 'Leo'),
-                  signName: 'Leo',
-                ),
-                ZodiacSignButton(
-                  page: ZodiacSignScreen(name: 'Virgo'),
-                  signName: 'Virgo',
-                ),
-                ZodiacSignButton(
-                  page: ZodiacSignScreen(name: 'Libra'),
-                  signName: 'Libra',
-                ),
-                ZodiacSignButton(
-                  page: ZodiacSignScreen(name: 'Scorpio'),
-                  signName: 'Scorpio',
-                ),
-                ZodiacSignButton(
-                  page: ZodiacSignScreen(name: 'Sagittarius'),
-                  signName: 'Sagittarius',
+                FutureBuilder<List<String>>(
+                  future: _fetchDataFuture,
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      // Показываем индикатор загрузки, пока данные загружаются
+                      return CircularProgressIndicator();
+                    } else if (snapshot.hasError) {
+                      // Показываем сообщение об ошибке, если что-то пошло не так
+                      return Text('Error: ${snapshot.error}');
+                    } else {
+                      // Данные успешно загружены, создаем кнопки для каждого знака
+                      List<String> zodiacSigns = snapshot.data ?? [];
+                      return Column(
+                        children: zodiacSigns.map((signName) {
+                          return ZodiacSignButton(
+                            page: ZodiacSignScreen(name: signName),
+                            signName: signName,
+                          );
+                        }).toList(),
+                      );
+                    }
+                  },
                 ),
               ],
             ),
